@@ -29,3 +29,10 @@ java -jar target/*.jar
 
 ## Auteur
 rahma hidri
+
+
+## Conteneurisation
+
+```bash
+docker build -t gestion-taches:v1 .
+docker run -d -p 8082:8082 --name app-taches gestion-taches:v1
