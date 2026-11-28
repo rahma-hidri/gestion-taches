@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taches-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: taches
+  template:
+    metadata:
+      labels:
+        app: taches
+    spec:
+      containers:
+      - name: taches
+        image: gestion-taches:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8082
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8082
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8082
+          initialDelaySeconds: 10
+          periodSeconds: 5
